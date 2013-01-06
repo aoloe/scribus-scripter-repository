@@ -1,0 +1,30 @@
+## name = Calendar
+## title = Calendar
+## description = Calendar
+## subroutine = run
+## menu = &Extras
+
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
+from PyQt4.uic import loadUi
+
+import mikro
+import __main__
+
+class ScribusCalendar :
+
+  def quit(self) :
+    self.window.close()
+    
+
+  def __init__(self):
+    script_path = "/home/ale/docs/src/scribus-scripter-repository/calendar/calendar.ui";
+    self.window = loadUi(script_path)
+    self.window.actionQuit.triggered.connect(self.quit)
+    self.window.show()
+    while self.window.isVisible():
+        qApp.processEvents()
+
+def run():
+    scribusCalendar = ScribusCalendar()
+
