@@ -1,0 +1,32 @@
+## name = testgui
+## title = GUI test
+## description = used to test embedding ui files
+## subroutine = run
+## menu = &File
+
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
+from PyQt4.uic import loadUi
+
+import mikro
+import __main__
+
+class GuiTest :
+
+  def quit(self) :
+    self.worker.finished = True
+    #self.worker.stop()
+    #QApplication.quit()
+    
+
+  def __init__(self):
+    #app = QApplication(sys.argv)
+
+
+    self.window = loadUi("/home/ale/docs/activite/libregraphics/labor/scripter/gui_test.ui")
+    self.window.actionQuit.triggered.connect(self.quit)
+    self.window.show()
+    #sys.exit(app.exec_())
+
+def run():
+    guiTest = GuiTest()
