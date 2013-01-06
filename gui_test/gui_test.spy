@@ -14,19 +14,19 @@ import __main__
 class GuiTest :
 
   def quit(self) :
-    self.worker.finished = True
-    #self.worker.stop()
-    #QApplication.quit()
+    self.window.close()
     
 
   def __init__(self):
     #app = QApplication(sys.argv)
 
 
-    self.window = loadUi("/home/ale/docs/activite/libregraphics/labor/scripter/gui_test.ui")
+    script_path = "/home/ale/docs/src/scribus-scripter-repository/gui_test/gui_test.ui";
+    self.window = loadUi(script_path)
     self.window.actionQuit.triggered.connect(self.quit)
     self.window.show()
-    #sys.exit(app.exec_())
+    while self.window.isVisible():
+        qApp.processEvents()
 
 def run():
     guiTest = GuiTest()
