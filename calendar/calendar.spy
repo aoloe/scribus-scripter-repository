@@ -9,22 +9,43 @@ from PyQt4.QtGui import *
 from PyQt4.uic import loadUi
 
 import mikro
-import __main__
+
+import os
+
+from math import sqrt
+
+class ScribusCalendarUI :
+
+    def __init__(self):
+        
+        self.window = loadUi(os.path.join(os.path.dirname(__file__), "calendar.ui"))
+        self.window.show()
+        while self.window.isVisible():
+            qApp.processEvents()
 
 class ScribusCalendar :
 
-  def quit(self) :
-    self.window.close()
-    
+    def __init__(self):
+        self.create()
+        self.initializeDocument()
 
-  def __init__(self):
-    script_path = "/home/ale/docs/src/scribus-scripter-repository/calendar/calendar.ui";
-    self.window = loadUi(script_path)
-    self.window.actionQuit.triggered.connect(self.quit)
-    self.window.show()
-    while self.window.isVisible():
-        qApp.processEvents()
+    def create(self):
+        # TODO: shouldn't newDocument be a function?
+        if Scripter.dialogs.newDocument:
+            self.document = Scripter.activeDocument
+        else:
+            self.document = None
+
+    def initializeDocument(self):
+        print "create a new style"
+        #createParagraphStyle(name=self.pStyleDate, alignment=ALIGN_RIGHT)
+        #createParagraphStyle(name=self.pStyleWeekday, alignment=ALIGN_RIGHT)
+        #createParagraphStyle(name=self.pStyleMonth)
+        #createParagraphStyle(name=self.pStyleWeekNo, alignment=ALIGN_RIGHT)
+        print self.document.unit
+        #self.originalUnit = self.document.unit
+        #self.document.setUnit(Scripter.UNIT_POINTS)
 
 def run():
+    ui = ScribusCalendarUI()
     scribusCalendar = ScribusCalendar()
-
