@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>259</width>
-    <height>291</height>
+    <height>352</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>230</y>
+     <y>270</y>
      <width>81</width>
      <height>16</height>
     </rect>
@@ -26,11 +26,11 @@
     <string>First line-height</string>
    </property>
   </widget>
-  <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
+  <widget class="QDoubleSpinBox" name="initia_leading">
    <property name="geometry">
     <rect>
      <x>120</x>
-     <y>220</y>
+     <y>260</y>
      <width>62</width>
      <height>23</height>
     </rect>
@@ -40,7 +40,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>200</y>
+     <y>240</y>
      <width>91</width>
      <height>16</height>
     </rect>
@@ -49,11 +49,11 @@
     <string>Spacing</string>
    </property>
   </widget>
-  <widget class="QDoubleSpinBox" name="doubleSpinBox_3">
+  <widget class="QDoubleSpinBox" name="spacing">
    <property name="geometry">
     <rect>
      <x>120</x>
-     <y>190</y>
+     <y>230</y>
      <width>62</width>
      <height>23</height>
     </rect>
@@ -63,7 +63,7 @@
    <property name="geometry">
     <rect>
      <x>160</x>
-     <y>260</y>
+     <y>320</y>
      <width>85</width>
      <height>27</height>
     </rect>
@@ -76,7 +76,7 @@
    <property name="geometry">
     <rect>
      <x>70</x>
-     <y>260</y>
+     <y>320</y>
      <width>85</width>
      <height>27</height>
     </rect>
@@ -91,7 +91,7 @@
      <x>10</x>
      <y>90</y>
      <width>241</width>
-     <height>80</height>
+     <height>121</height>
     </rect>
    </property>
    <property name="title">
@@ -101,7 +101,7 @@
     <property name="geometry">
      <rect>
       <x>130</x>
-      <y>30</y>
+      <y>70</y>
       <width>61</width>
       <height>16</height>
      </rect>
@@ -114,7 +114,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>30</y>
+      <y>70</y>
       <width>61</width>
       <height>16</height>
      </rect>
@@ -123,21 +123,24 @@
      <string>Horizontal</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit">
+   <widget class="QLineEdit" name="grid_ratio_hv">
     <property name="geometry">
      <rect>
       <x>100</x>
-      <y>50</y>
+      <y>90</y>
       <width>131</width>
       <height>23</height>
      </rect>
     </property>
+    <property name="text">
+     <string>h/v</string>
+    </property>
    </widget>
-   <widget class="QSpinBox" name="spinBox">
+   <widget class="QSpinBox" name="grid_horizontal_nb_div_in_areas">
     <property name="geometry">
      <rect>
       <x>70</x>
-      <y>20</y>
+      <y>60</y>
       <width>47</width>
       <height>23</height>
      </rect>
@@ -147,7 +150,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>60</y>
+      <y>100</y>
       <width>61</width>
       <height>16</height>
      </rect>
@@ -156,11 +159,57 @@
      <string>Ratio</string>
     </property>
    </widget>
-   <widget class="QSpinBox" name="spinBox_2">
+   <widget class="QSpinBox" name="spingrid_vertical_nb_div_in_areas">
     <property name="geometry">
      <rect>
       <x>185</x>
-      <y>20</y>
+      <y>60</y>
+      <width>47</width>
+      <height>23</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>40</y>
+      <width>48</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Colonnes</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_11">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>40</y>
+      <width>48</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Lignes</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="grid_vertical_nb_areas">
+    <property name="geometry">
+     <rect>
+      <x>185</x>
+      <y>30</y>
+      <width>47</width>
+      <height>23</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="grid_horizontal_nb_areas">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>30</y>
       <width>47</width>
       <height>23</height>
      </rect>
@@ -192,7 +241,7 @@
      <string>Left</string>
     </property>
    </widget>
-   <widget class="QDoubleSpinBox" name="doubleSpinBox_4">
+   <widget class="QDoubleSpinBox" name="margin_left">
     <property name="geometry">
      <rect>
       <x>50</x>
@@ -215,7 +264,7 @@
      <string>Right</string>
     </property>
    </widget>
-   <widget class="QDoubleSpinBox" name="doubleSpinBox_5">
+   <widget class="QDoubleSpinBox" name="margin_right">
     <property name="geometry">
      <rect>
       <x>170</x>
@@ -251,7 +300,7 @@
      <string>Bottom</string>
     </property>
    </widget>
-   <widget class="QDoubleSpinBox" name="doubleSpinBox_6">
+   <widget class="QDoubleSpinBox" name="margin_top">
     <property name="geometry">
      <rect>
       <x>50</x>
@@ -261,7 +310,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QDoubleSpinBox" name="doubleSpinBox_7">
+   <widget class="QDoubleSpinBox" name="margin_bottom">
     <property name="geometry">
      <rect>
       <x>170</x>
