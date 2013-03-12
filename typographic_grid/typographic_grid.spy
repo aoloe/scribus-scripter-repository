@@ -1,0 +1,127 @@
+'''
+Copyright (C) 2013 A. Rimoldi <a.l.e@ideale.ch>
+                   C. Gémy <cedric@cgemy.com>
+                   C. Schockaert <R3vLibre@citadels.be>
+
+##This extension draws a typographic grid for use within Scribus documents.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+'''
+
+
+## name = Typographic Grid
+## title = Typographic Grid
+## description = Creates a typographic grid ofr use within Scribus
+## subroutine = run
+## menu = &Extras
+
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
+from PyQt4.uic import loadUi
+
+import mikro
+
+import os
+
+from math import sqrt
+
+class ScribusTypoGridUI :
+
+    def __init__(self):
+        
+        self.window = loadUi(os.path.join(os.path.dirname(__file__), "typographic_grid.ui"))
+        self.window.show()
+        while self.window.isVisible():
+            qApp.processEvents()
+
+class ScribusTypoGrid :
+
+    def __init__(self):
+        self.margins = {}
+        self.create()
+        self.getUIValues()
+        self.defineGridFromSpec()
+        self.createGrid()
+
+    def create(self):
+        # TODO: shouldn't newDocument be a function?
+        if Scripter.dialogs.newDocument:
+            self.document = Scripter.activeDocument
+        else:
+            self.document = None
+
+    def getUIValues()
+"""Get values from UI fields"""
+
+        # Get values for margins
+        self.margins["left"] = 
+        self.margins["right"] = 
+        self.margins["top"] =
+        self.margins["bottom"] =
+
+        # Get values for initial leading
+        self.leading["initial"] = 
+        
+        # Get vertical and horizontal grid space definitions
+#        self.grid["nb_vertical_areas"] = 
+#        self.grid["nb_vertical_div_in_areas"] =
+        self.grid["vertical"]["nb_div"] = "nb_vertical_areas" * "nb_vertical_div_in_areas"
+#        self.grid["nb_horizontal_areas"] = 
+#        self.grid["nb_horizontal_div_in_areas"] =
+        self.grid["vertical"]["nb_div"] = "nb_horizontal_areas" * "nb_horizontal_div_in_areas"
+        self.grid["vertical"]["spacing"] = "vertical-spacing"
+        self.grid["horizontal"]["spacing"] = "horizontal-spacing"
+
+
+    def initializeDocument(self):
+        print "create a new style"
+        style = self.document.createParagraphStyle("test")
+        style.setAlignment(1);
+        style.update();
+
+        #createParagraphStyle(name=self.pStyleDate, alignment=ALIGN_RIGHT)
+        #createParagraphStyle(name=self.pStyleWeekday, alignment=ALIGN_RIGHT)
+        #createParagraphStyle(name=self.pStyleMonth)
+        #createParagraphStyle(name=self.pStyleWeekNo, alignment=ALIGN_RIGHT)
+        print self.document.unit
+        #self.document.createMasterPage("test")
+        #self.originalUnit = self.document.unit
+        #self.document.setUnit(Scripter.UNIT_POINTS)
+
+    def defineGridFromSpec(self):
+        page_width = getDocument("page_width")
+        page_height = getDocument("page_height")
+        pos["start"]["x"] = self.margins["left"]
+        pos["start"]["y"] = self.margins["right"]
+        pos["end"]["x"] = page_witdh - self.margins["right"]
+        pos["end"]["y"] = page_height - self.margins["bottom"]
+
+        # Compute grid height & width
+        self.grid["height"] = (pos["end"]["y"] - pos["start"]["y"])
+        self.grid["width"] = (pos["end"]["x"] - pos["start"]["x"])
+
+        # Compute nb of lines based on initial interval
+        self.grid["nb_baselines"] \
+            = self.grid["height"] / self.leading["initial"]
+
+        # Then compute resulting leading space resulting in integer nb_baselines
+        self.leading["computed"] \
+            = self.grid["height"] / self.grid["nb_baselines"]
+        
+
+    def createGrid(self):
+
+def run():
+    # ui = ScribusTypoGridUI()
+    scribusTypographicGrid = ScribusTypoGrid()
