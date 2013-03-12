@@ -38,14 +38,19 @@ class ScribusCalendar :
 
     def initializeDocument(self):
         print "create a new style"
+        style = self.document.createParagraphStyle("test")
+        style.setAlignment(1);
+        style.update();
+
         #createParagraphStyle(name=self.pStyleDate, alignment=ALIGN_RIGHT)
         #createParagraphStyle(name=self.pStyleWeekday, alignment=ALIGN_RIGHT)
         #createParagraphStyle(name=self.pStyleMonth)
         #createParagraphStyle(name=self.pStyleWeekNo, alignment=ALIGN_RIGHT)
         print self.document.unit
+        #self.document.createMasterPage("test")
         #self.originalUnit = self.document.unit
         #self.document.setUnit(Scripter.UNIT_POINTS)
 
 def run():
-    ui = ScribusCalendarUI()
+    # ui = ScribusCalendarUI()
     scribusCalendar = ScribusCalendar()
