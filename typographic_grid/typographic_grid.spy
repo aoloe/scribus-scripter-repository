@@ -75,13 +75,13 @@ class ScribusTypoGrid :
         self.grid["horizontal"]["spacing"] = "UI.spacing"
 
 
-    def setValuesManually(self, page, margins, leading, grid):
+    def setValues(self, page, margins, leading, grid):
         self.page = page
         self.margins = margins
         self.leading = leading
         self.grid = grid
 
-    def defineGridFromSpec(self):
+    def calculateGrid(self):
         pos = {}
         pos["start"] = {}
         pos["end"] = {}
@@ -95,6 +95,11 @@ class ScribusTypoGrid :
         self.grid["width"] = (pos["end"]["x"] - pos["start"]["x"])
 
         # Compute nb of lines based on initial interval
+        self.computeBaselineNbAndInterval()
+
+
+    def computeBaselineNbAndInterval(self):
+        """Compute nb of lines based on initial interval."""
         self.grid["nb_baselines"] \
             = int(self.grid["height"] / self.leading["initial"])
 
@@ -111,7 +116,7 @@ class ScribusTypoGrid :
             self.leading["computed"] = self.leading["computed_upper"]
         else:
             self.leading["computed"] = self.leading["computed_lower"]
-
+        
         
 
     def describeGridSpec(self):
@@ -154,14 +159,14 @@ def run(testValues = None):
     # ui = ScribusTypoGridUI()
     scribusTypoGrid = ScribusTypoGrid()
     if testValues:
-        scribusTypoGrid.setValuesManually(testValues["page"],
-                                          testValues["margins"],
-                                          testValues["leading"],
-                                          testValues["grid"])
+        scribusTypoGrid.setValues(testValues["page"],
+                                  testValues["margins"],
+                                  testValues["leading"],
+                                  testValues["grid"])
     else:
         scribusTypoGrid.getParamValues()
 
-    scribusTypoGrid.defineGridFromSpec()
+    scribusTypoGrid.calculateGrid()
 
     if testValues:
         GridSpec = scribusTypoGrid.describeGridSpec()
