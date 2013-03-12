@@ -1,4 +1,3 @@
-#! /usr/bin/env python
 # -*- coding: utf-8-unix;  -*-
 # Above line defines encoding : http://www.python.org/dev/peps/pep-0263/
 
@@ -33,9 +32,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4.uic import loadUi
+import imp
 
-
-class ScribusTypoGridUI :
+class ScribusTypoGridUI(object):
 
     def __init__(self):
         
@@ -44,55 +43,62 @@ class ScribusTypoGridUI :
         while self.window.isVisible():
             qApp.processEvents()
 
-class ScribusTypoGrid :
-
-    def __init__(self):
-        self.margins = {}
-        self.leading = {}
-        self.grid = {}
-#        self.getParamValues()
-
-
-    def getParamValues(self, UI):
+    def getParamValues(self):
         """Get values from UI fields"""
         # Get page specification from Scribus Document
-        self.page["width"] = "Document.page_width"
-        self.page["height"] = "Document.page_heigth"
+        page = {}
+        page["width"] = "Document.page_width"
+        page["height"] = "Document.page_heigth"
 
         # Get values for margins
-        self.margins["left"] = "UI.margin_left"
-        self.margins["right"] = "UI.margin_right"
-        self.margins["top"] = "UI.margin_top"
-        self.margins["bottom"] = "UI.margin_bottom"
+        margins = {}
+        margins["left"] = "UI.margin_left"
+        margins["right"] = "UI.margin_right"
+        margins["top"] = "UI.margin_top"
+        margins["bottom"] = "UI.margin_bottom"
 
         # Get values for initial leading interval
-        self.leading["initial"] = "UI.initial_leading"
+        leading = {}
+        leading["target"] = "UI.target_leading"
         
         # Get vertical and horizontal grid space definitions
-        self.grid["vertical"]["nb_div"] = "UI.grid_vertical_nb_areas * UI.grid_vertical_nb_div_in_areas"
-        self.grid["vertical"]["nb_div"] = "UI.grid_horizontal_nb_areas * UI.grid_horizontal_nb_div_in_areas"
-        self.grid["vertical"]["spacing"] = "UI.spacing"
-        self.grid["horizontal"]["spacing"] = "UI.spacing"
+        grid = {}
+        grid["vertical"] = {}
+        grid["horizontal"] = {}
+        grid["vertical"]["nb_div"] = "UI.grid_vertical_nb_div"
+        grid["horizontal"]["nb_div"] = "UI.grid_horizontal_nb_div"
+        grid["vertical"]["gutter"] = "UI.gutter"
+        grid["horizontal"]["gutter"] = "UI.gutter"
+
+        return (page, margins, leading, grid)
+
+
+class ScribusTypoGrid(object):
+
+    def __init__(self, ui):
+        print "Setting ScribusTypoGrid"
+        self.ui = ui
+        (page, margins, leading, grid) = ui.getParamValues()
+        self.setValues(page, margins, leading, grid)
 
 
     def setValues(self, page, margins, leading, grid):
+        """Set values from arrays 'page', 'margins', 'leading' and 'grid'"""
         self.page = page
         self.margins = margins
         self.leading = leading
         self.grid = grid
 
+
     def calculateGrid(self):
-        pos = {}
-        pos["start"] = {}
-        pos["end"] = {}
-        pos["start"]["x"] = self.margins["left"]
-        pos["start"]["y"] = self.margins["right"]
-        pos["end"]["x"] = self.page["width"] - self.margins["right"]
-        pos["end"]["y"] = self.page["height"] - self.margins["bottom"]
+        self.grid["left"] = self.margins["left"]
+        self.grid["right"] = self.page["width"] - self.margins["right"]
+        self.grid["top"] = self.margins["top"]
+        self.grid["bottom"] = self.page["height"] - self.margins["bottom"]
 
         # Compute grid height & width
-        self.grid["height"] = (pos["end"]["y"] - pos["start"]["y"])
-        self.grid["width"] = (pos["end"]["x"] - pos["start"]["x"])
+        self.grid["height"] = abs(self.grid["bottom"] - self.grid["top"])
+        self.grid["width"] = abs(self.grid["right"] - self.grid["left"])
 
         # Compute nb of lines based on initial interval
         self.computeBaselineNbAndInterval()
@@ -101,7 +107,7 @@ class ScribusTypoGrid :
     def computeBaselineNbAndInterval(self):
         """Compute nb of lines based on initial interval."""
         self.grid["nb_baselines"] \
-            = int(self.grid["height"] / self.leading["initial"])
+            = int(self.grid["height"] / self.leading["target"])
 
         # Then compute resulting leading space resulting in integer nb_baselines
         self.leading["computed_lower"] \
@@ -111,68 +117,33 @@ class ScribusTypoGrid :
             = self.grid["height"] / self.grid["nb_baselines"]
 
         # Keep closest resulting computed leading interval
-        if (abs(self.leading["computed_upper"] - self.leading["initial"])
-            < abs(self.leading["computed_lower"] - self.leading["initial"])):
+        if (abs(self.leading["computed_upper"] - self.leading["target"])
+            < abs(self.leading["computed_lower"] - self.leading["target"])):
             self.leading["computed"] = self.leading["computed_upper"]
         else:
             self.leading["computed"] = self.leading["computed_lower"]
         
-        
-
-    def describeGridSpec(self):
-        """Generate a summary string of grid specifications"""
-        gridSpecs = [ ]
-        gridSpecs.append("Page:")
-        gridSpecs.append("  width = " + str(self.page["width"]))
-        gridSpecs.append("  height = " + str(self.page["height"]))
-        gridSpecs.append("")
-        gridSpecs.append("Margins:")
-        gridSpecs.append("  left = " + str(self.margins["left"]))
-        gridSpecs.append("  right = " + str(self.margins["right"]))
-        gridSpecs.append("  top = " + str(self.margins["top"]))
-        gridSpecs.append("  bottom = " + str(self.margins["bottom"]))
-        gridSpecs.append("")
-        gridSpecs.append("Leading interval:")
-        gridSpecs.append("  initial = " + str(self.leading["initial"]))
-        gridSpecs.append("  computed = " + str(self.leading["computed"]))
-        gridSpecs.append("  computed_lower = " + str(self.leading["computed_lower"]))
-        gridSpecs.append("  computed_upper = " + str(self.leading["computed_upper"]))
-        gridSpecs.append("")
-        gridSpecs.append("Grid:")
-        gridSpecs.append("  Vertical:")
-        gridSpecs.append("    nb_div = " + str(self.grid["vertical"]["nb_div"]))
-        gridSpecs.append("    spacing = " + str(self.grid["vertical"]["spacing"]))
-        gridSpecs.append("  Horizontal:")
-        gridSpecs.append("    nb_div = " + str(self.grid["horizontal"]["nb_div"]))
-        gridSpecs.append("    spacing = " + str(self.grid["horizontal"]["spacing"]))
-        gridSpecs.append("  Baseline:")
-        gridSpecs.append("    baseline_nb = " + str(self.grid["nb_baselines"]))
-        return "\n".join(gridSpecs)
-
 
     def createGrid(self):
         print "createGrid: not implemented yet !"
         return
 
 
-def run(testValues = None):
-    # ui = ScribusTypoGridUI()
-    scribusTypoGrid = ScribusTypoGrid()
-    if testValues:
-        scribusTypoGrid.setValues(testValues["page"],
-                                  testValues["margins"],
-                                  testValues["leading"],
-                                  testValues["grid"])
+def run(uiTest = None):
+    if uiTest:
+        # Test purposes : create a special grid instance for tests handling
+        #                 UI definitions are created from stub argument
+        mod_testTypoGrid = imp.load_source("test_typo_grid", 
+                                           "test_typo_grid.py")
+        scribusTypoGrid = mod_testTypoGrid.Test_ScribusTypoGrid(uiTest)
     else:
-        scribusTypoGrid.getParamValues()
+        # Nominal case : handle UI, then prepare grid instance
+        ui = ScribusTypoGridUI()
+        scribusTypoGrid = ScribusTypoGrid(ui)
 
+    # Perform grid calculation and creation
     scribusTypoGrid.calculateGrid()
+    scribusTypoGrid.createGrid()
 
-    if testValues:
-        GridSpec = scribusTypoGrid.describeGridSpec()
-        print "Grid Specification:\n" + GridSpec
-    else:
-        scribusTypoGrid.createGrid()
-
-if __name__ == '__main__':
-    run()
+    # Return grid instance for tests handling
+    return scribusTypoGrid
