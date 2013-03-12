@@ -65,23 +65,19 @@ class ScribusTypoGrid :
 """Get values from UI fields"""
 
         # Get values for margins
-        self.margins["left"] = 
-        self.margins["right"] = 
-        self.margins["top"] =
-        self.margins["bottom"] =
+        self.margins["left"] = "margin-left"
+        self.margins["right"] = "margin-right"
+        self.margins["top"] = "margin-top"
+        self.margins["bottom"] = "margin-bottom"
 
         # Get values for initial leading
-        self.leading["initial"] = 
+        self.leading["initial"] = "initial-leading"
         
         # Get vertical and horizontal grid space definitions
-#        self.grid["nb_vertical_areas"] = 
-#        self.grid["nb_vertical_div_in_areas"] =
-        self.grid["vertical"]["nb_div"] = "nb_vertical_areas" * "nb_vertical_div_in_areas"
-#        self.grid["nb_horizontal_areas"] = 
-#        self.grid["nb_horizontal_div_in_areas"] =
-        self.grid["vertical"]["nb_div"] = "nb_horizontal_areas" * "nb_horizontal_div_in_areas"
-        self.grid["vertical"]["spacing"] = "vertical-spacing"
-        self.grid["horizontal"]["spacing"] = "horizontal-spacing"
+        self.grid["vertical"]["nb_div"] = "grid_vertical_nb_areas" * "grid_vertical_nb_div_in_areas"
+        self.grid["vertical"]["nb_div"] = "grid_horizontal_nb_areas" * "grid_horizontal_nb_div_in_areas"
+        self.grid["vertical"]["spacing"] = "spacing-vertical"
+        self.grid["horizontal"]["spacing"] = "spacing-horizontal"
 
 
     def initializeDocument(self):
