@@ -1,0 +1,257 @@
+<div id="main-content">
+  <h1>Les clés</h1>
+
+  <p>Dans cette section, nous vous amenons à découvrir une des fonctions pratiques très bien supportées par <span class="software">Cinelerra</span> qui est la création et la gestion des clés qui peuvent être définies plus précisément comme des points-clés et images-clés.</p>
+
+  <p>Un point-clé est l'enregistrement des paramètres associés à un filtre sur un plan.</p>
+
+  <p>&nbsp;(IMAGE A INSERER: cles_point1.png)<br></p>
+
+  <p>Une image-clé est un enregistrement de paramètres à un instant T (h:m:s:i) dans la ligne de temps, en conséquence les paramètres varient dans le temps.</p>
+
+  <p>&nbsp;(IMAGE A INSERER: cles_clé1.png)</p>
+
+  <h2>Affichage des courbes et des images-clés</h2>
+
+  <p>Tous les types de courbes et donc d'images-clés ne sont pas visibles par défaut à part celle des fondus audio et vidéo.</p>
+
+  <p>Pour afficher les autres courbes, rendez-vous dans le menu de la fenêtre de programme, puis cliquer sur <span class="menu">Afficher</span> . Une fenêtre se déroule et apparaît une liste contenant entre autres, les différents types de courbes que vous pouvez afficher sur les pistes.</p>
+
+  <p><img src="/ecrire/cinelerra/_edit/static/Cles-echellecourbe.png"></p>
+
+  <p>Listons les courbes qui pourraient nous intéresser :</p>
+
+  <ul>
+    <li><span class="ui_button">Fondu</span> afin de moduler les niveaux sonores et d'opacité de la vidéo&nbsp;</li>
+
+    <li><span class="ui_button">Sourdine</span> qui rend active ou inactive la piste audio et/ou vidéo au fil du temps</li>
+
+    <li><span class="ui_button">Panoramique</span> pour générer une spatialisation du son. Le plus couramment, il s'agit de l'aménagement stéréo (droite-gauche) du son</li>
+
+    <li><span class="ui_button">X Caméra</span>, <span class="ui_button">Y Caméra&nbsp;&nbsp;</span> et <span class="ui_button">Z Caméra</span> pour les coordonnées de la caméra</li>
+
+    <li><span class="ui_button">X Projecteur</span> , <span class="ui_button">Y Projecteur</span> et <span class="ui_button">Z Projecteur</span> pour les coordonnées du projecteur</li>
+  </ul>
+
+  <p>Pour agir sur les images-clés associées à des filtres représentées par cette icône <img src="/ecrire/cinelerra/_edit/static/Cles-image-cle.png"> , il est nécessaire de cocher au préalable <span class="ui_button">Plugins auto</span> dans la fenêtre déroulante du menu <span class="ui_button">Afficher</span>.</p>
+
+  <p>De plus, vous devez enclencher le bouton&nbsp; <span class="ui_button">«Générer les images-clés automatiquement»</span> <img src="/ecrire/cinelerra/_edit/static/Cles-genereimagecle.png">situé sur la barre d'outil de la <span class="window">fenêtre des programmes&nbsp;</span> ainsi qu'en bas de la <span class="window">fenêtre de composition</span> .</p>
+
+  <p>Pour visualiser les images-clés des masques représentées par cette icône <img src="/ecrire/cinelerra/_edit/static/Icone-masque%202.png">, il est nécessaire de sélectionner <span class="ui_button">Masque</span> dans la fenêtre déroulante du menu <span class="ui_button">Afficher</span>.</p>
+
+  <h2>Exemple d'utilisation des points-clés pour paramétrer un effet :</h2>
+
+  <p>Appliquons le filtre audio <span class="ui_button">Compresseur</span> à notre son (voir comment appliquer un effet). Ouvrons la fenêtre des réglages du filtre. Nous allons moduler la courbe en altérant les points clés :</p>
+
+  <ul>
+    <li>Création : En cliquant sur la courbe avec la souris.</li>
+
+    <li>Déplacement : En glissant-déposant les points clés avec la souris.</li>
+
+    <li>Suppression :</li>
+
+    <li>En cliquant sur <span class="ui_button">Réinitialiser</span>, auquel cas ils disparaîtront.</li>
+
+    <li>En attrapant le point-clé et en l'amenant vers l'extérieur de la fenêtre du filtre comme si on voulait le jeter au loin.</li>
+  </ul>
+
+  <p>&nbsp;<img src="_booki/cinelerra/static/Cles-compFXok.png" height="347" width="445"></p>
+
+  <p>Dans le cas de l'outil <span class="ui_button">Histogramme</span>, la suppression du point-clé s'effectue par sa sélection puis appuyer sur&nbsp; la touche&nbsp;«Supprimer» de votre clavier.</p>
+
+  <p><img src="_booki/cinelerra/static/Cles-histoFX.png" height="539" width="451"></p>
+
+  <p>C'est la fin de l'exemple. Fermez les fenêtres Histogram et Compressor, fermez votre project et recommencez avec un autre projet pour l'exemple suivant.&nbsp;<br></p>
+
+  <h2>Exemple d'utilisation des images-clés :</h2>
+
+  <h3>Avec les courbes de fondus audio et vidéo dans la ligne de temps :</h3>
+
+  <p>Nous avons deux pistes audio. Sur la piste 1, nous avons placé la voix d'un narrateur et sur la piste 2, une bande musicale. Dans un premier temps, nous voulons faire commencer en douceur notre bande musicale, puis un peu plus loin comme nous avons insérer la voix du narrateur, il nous faudra baisser le volume sonore de la musique pour le remonter ensuite. Et pour finir la séquence, nous voulons qu'un silence s’installe progressivement.</p>
+
+  <p>Voici à quoi ressemble notre <span class="ui_button">courbe de volume du son</span> une fois les clés posées afin obtenir les effets de modulations sonores détaillés ci-dessus :</p>
+
+  <p><img src="_booki/cinelerra/static/Timeline%20-%20images-cles%201.png" height="225" width="627"></p>
+
+  <p>&nbsp;</p>
+
+  <p>Il en sera exactement de même pour l'utilisation des clés dans la <span class="ui_button">courbe d'opacité de la vidéo</span> !</p>
+
+  <p><img src="_booki/cinelerra/static/Cle-fonduvid.png" height="180" width="627"></p>
+
+  <p>Attention! l'édition des images-clés dépend du fait que les pistes sont actives ou non mais aussi de l'activation du bouton de groupage des réglages <img src="_booki/cinelerra/static/Cles-groupereglages.png"></p>
+
+  <p>Par conséquent, si vous voulez appliquer des clés sur vos piste audio 1 et 2 et pas 3 et 4, pensez à les désactiver d'un façon ou d'une autre!</p>
+
+  <p><img src="_booki/cinelerra/static/Cles-imagecle-fondu-chainon.png" height="185" width="523"></p>
+
+  <p>Pour des compléments sur les courbes de fondus, se référer à la section<strong>&nbsp;«La transparence»</strong> du chapitre <strong>«Superposition et Incrustation».</strong></p>
+
+  <h3>Avec la courbe de la sourdine :</h3>
+
+  <p>La courbe de la sourdine est très utile pour un montage multi-caméra par exemple, car elle permet d'activer ou de désactiver «en cut» la piste vidéo et/ou audio.</p>
+
+  <p><img src="_booki/cinelerra/static/Cles-sourdine.png" height="248" width="212"></p>
+
+  <p>La sourdine interagit avec le bouton <span class="ui_button">d'«envoi vers la sortie»</span> à droite de la ligne de temps.</p>
+
+  <p>Ce qui veut dire que vous pouvez effectuer vos cuts dans la courbe en cliquant simplement sur le bouton <span class="ui_button">d'«envoi vers la sortie»</span></p>
+
+  <p><img src="/ecrire/cinelerra/_edit/static/Cles-iconesourdine.png"></p>
+
+  <p>A noter que la courbe de la sourdine n'est pas assujettie à l'activation des pistes.</p>
+
+  <h3>Avec les réglages de filtres dans la ligne de temps :</h3>
+
+  <p>Les images-clés associées à des filtres se présentent dans la <span class="window">ligne de temps</span> sous cette forme <img src="_booki/cinelerra/static/Cles-image-cle.png"></p>
+
+  <p>Pour les éditer, il faut absolument cocher le bouton&nbsp;<span class="ui_button">«Générer les images-clés automatiquement»</span> <img src="_booki/cinelerra/static/Cles-genereimagecle.png"></p>
+
+  <p>Pour bien comprendre les images-clés, amusons-nous à attribuer différentes vitesses de lecture à notre plan, grâce au filtre <span class="ui_button">ReframeRT</span>&nbsp;</p>
+
+  <p>Dans l'image ci-dessous, vous visualisez 4 images-clés (la dernière se cache derrière le bouton de visualisation de l'effet). Sur la première clé, nous avons ralenti la lecture, sur la seconde, nous instruisons la vitesse initiale, dans la troisième nous accélérons à nouveau et la dernière nous ralentissons fortement la vitesse. Les changements de vitesse entre deux images-clés sont très fluides. On peut au besoin , réajuster l'emplacement des clés en les déplaçant avec la souris.</p>
+
+  <p>Pensez à sauver votre projet avant de bouger les clés, il arrive que Cinelerra plante à cette manip,</p>
+
+  <p>mais rien de grave si vous pensez à sauver!</p>
+
+  <p><img src="_booki/cinelerra/static/Cles-reframeRT.png" height="174" width="574">&nbsp;</p>
+
+  <h3>Avec l'outil <span class="window"><span class="window">Masque</span></span> :</h3>Les images clés des masques sont spécifiquement représentées par cette icône <img src="/ecrire/cinelerra/_edit/static/Icone-masque%202.png">
+
+  <p>Chaque images-clés du masque est liée aux autres via le processus d'interpolation des coordonnées relatives à chaque images clés. Les valeurs masques évoluent donc de manière progressive et fluide entre chaque image-clé.</p>
+
+  <p>Pour plus de détails sur l'utilisation des images-clés dans les masques, nous vous invitons à étudier le chapitre dédié aux masques.</p>
+
+  <h2>Gérer l'échelle des courbes</h2>
+
+  <p>Pour des raisons de confort visuel, vous aurez peut-être besoin de personnaliser le positionnement de la courbe sur laquelle vous travaillez dans la piste des effets.</p>
+
+  <p>Pour cela, vous devrez modifier les coordonnées de l'apparence des courbes de quelques décimales. Lorsque les courbes apparaissent sur la piste, l'axe des abscisses (Y) est systématiquement l'échelle de temps de la <span class="window">ligne de temps</span>. Faire évoluer l'échelle des abscisses revient donc à zoomer- et dé-zoomer dans la ligne de temps.</p>
+
+  <address>
+    Note&nbsp;: le zoom-dezoom (avant-arrière) dans la ligne de temps se fait avec les <span class="shortcut">flèches haut et bas</span> du clavier. Aussi vous pouvez modifier la <span class="ui_button">Durée visible sur la timeline</span> dans le menu situé en bas à droite de la fenêtre de la <span class="anglicisme">timeline</span>, via les bouton haut et bas ou la molette de la souris lorsque le curseur est dessus.
+  </address>
+
+  <p>L'axe des ordonnées (X) elle, se module en fonction du type de courbe que l'on paramètre. Vous devez donc indiquer au logiciel sur quelle position de courbe vous voulez agir, via le menu déroulant en bas de la ligne de temps :</p>
+
+  <p><img src="_booki/cinelerra/static/Timeline%20-%20echelles%20ic.png"></p>
+
+  <p>Après avoir sélectionner le type de courbe, dans notre exemple nous avons sélectionner les fondus audio, modifier les valeurs de positionnement de la courbe via les flèches haut et bas des valeurs minimum (à gauche) et maximum (à droite).</p>
+
+  <p>Les unités utilisées dans cet encart sont :</p>
+
+  <p>- des pixels pour ce qui est des valeurs X et Y</p>
+
+  <p>- des pourcentages pour ce qui est des fondus</p>
+
+  <p>- des multiples pour ce qui est du zoom (Z).</p>
+
+  <address>
+    Astuce&nbsp;:&nbsp;pour modifier plus rapidement le valeurs minimum et maximum des différentes ordonnées, on peut aussi utiliser la molette de la souris quand le curseur est situé sur les flèches haut et bas de chaque valeur.
+  </address>
+
+  <h2>Créer ou modifier graphiquement une image-clé</h2>
+
+  <p>Il existe deux solutions&nbsp;:</p>
+
+  <h4>Sur la courbe</h4>
+
+  <p>Pour ce qui est des courbes dessinées sur les pistes, vous pouvez faire apparaître une image-clé en cliquant sur la courbe du paramètre qui vous intéresse, au temps où cela vous intéresse. Vous pouvez ajouter autant d'images-clés que vous le désirez et leur faire prendre la valeur et la position que vous souhaitez en les faisant évoluer verticalement et horizontalement sur la piste.</p>
+
+  <p>Pour supprimer une image-clé : <span class="shortcut">CLIC droit</span> sur celle-ci puis <span class="menu">supprimer l'image-clé</span></p>
+
+  <address>
+    Attention&nbsp;:&nbsp;n'oubliez pas d'activer la piste sur laquelle vous voulez agir avant d'agir dessus&nbsp;!
+  </address>
+
+  <h4>Automatiquement</h4>
+
+  <p>La génération automatique des images-clés peut être intéressante par exemple dans le cas où vous créez une animation. Imaginez que vous animez un personnage entrain de marcher. Vous allez très certainement générer un nombre conséquent d'images-clés et vous ressentirez sûrement la nécessité de modifier ces clés pour leur attribuer d'infimes paramètres.&nbsp; Le copier/coller des images-clés vous sera alors très utile. Dans le chapitre Motion Tracking cette technique sera appliquer et expliquée en détail.</p>
+
+  <p>Avec le bouton <span class="ui_button">générer les images-clés automatiquement</span> <img src="/ecrire/cinelerra/_edit/static/Cles-genereimagecle.png"> enclenché&nbsp;</p>
+
+  <p>Lorsqu'il est allumé, chaque modification d'un paramètre de filtre ou de masque, génère une image-clé à l'endroit où est placé la tête de lecture à ce moment là.</p>
+
+  <address>
+    Attention&nbsp;:&nbsp;si vous n'avez pas l'intention de travailler avec le système des images-clés, vérifiez bien que le bouton <span class="ui_button">générer des images clés automatiquement</span> est éteint, car vous pourrez vite vous retrouver avec un nuage d'images-clés non voulu sur vos pistes!
+  </address>
+
+  <h2>Copier / coller une clé ou un ensemble de clés</h2>
+
+  <p>Il est parfois intéressant pour des questions de rapidité, de reproduire une image-clé ou tout un groupe d'images-clés sur une autre portion de piste ou sur une autre piste. Par exemple pour répéter une combinaison d'effets ou créer une nouvelle combinaison d'effets qui ne diffère de l’originale que par quelques coordonnées.</p>
+
+  <h4>Copier une image-clé :</h4>
+
+  <p>Activer uniquement la piste sur laquelle vous voulez copier la clé. Opérez un clic droit sur l'image-clé à copier et sélectionnez <span class="menu">copier l'image clé</span>. Puis activez la piste de destination (si elle est différente) et placer la tête de lecture à l'endroit où vous voulez copier l'image-clé. Rendez-vous ensuite à <span class="menu">images-clé</span>, un des premiers onglets de la fenêtre de <span class="window">Programme</span> et sélectionner <span class="menu">coller les images-clés</span> .</p>
+
+  <h4>Copier un groupe d'images-clés :</h4>
+
+  <p>Activez la piste concernée, sélectionnez la portion qui vous intéresse en allumant le bouton <span class="ui_button">Mode d'édition par couper-coller</span>. <strong>IMAGE : Cles-modeeditioncopiercoller.png</strong> Puis allez dans la fenêtre de <span class="window">Programme</span> et sélectionner <span class="menu">copier les images-clés</span>. Activez maintenant la piste de destination, sélectionnez l'espace de destination, toujours avec le bouton <span class="ui_button">Mode d'édition par couper-coller</span>, puis retournez dans la fenêtre de <span class="window">Programme</span> et sélectionnez <span class="menu">coller les images-clés</span></p>
+
+  <p>Quelque-soit la fonction sur laquelle elles s'appliquent, les clés s'utilisent avec la même logique. Vous pourrez donc rapidement acquérir des automatismes qui vous seront précieux pour le bon déroulement de la post-production en libre de votre film.</p>
+</div>
+
+<ul class="menu-goes-here">
+  <li><a href="/cinelerra/index">Introduction</a></li>
+
+  <li class="booki-section">Pourquoi Cinelerra CV ?</li>
+
+  <li><a href="/cinelerra/ch002_exemples-dutilisation">Exemples d'utilisation</a></li>
+
+  <li><a href="/cinelerra/ch003_a-propos-du-livre">À propos du livre</a></li>
+
+  <li class="booki-section">Créer un nouveau projet</li>
+
+  <li><a href="/cinelerra/ch005_preparer-ses-medias">Préparer ses médias</a></li>
+
+  <li><a href="/cinelerra/ch006_creer-son-projet">Créer son projet</a></li>
+
+  <li class="booki-section">Premier montage</li>
+
+  <li><a href="/cinelerra/ch008_le-principe-du-montage">Le principe du montage</a></li>
+
+  <li><a href="/cinelerra/ch009_presentation-de-linterface">Présentation de l'interface</a></li>
+
+  <li><a href="/cinelerra/ch010_la-ligne-du-temps">Assembler les plans</a></li>
+
+  <li><a href="/cinelerra/ch011_sous-titrage">Ajouter un effet</a></li>
+
+  <li><a href="/cinelerra/ch012_exporter">Exporter sa vidéo</a></li>
+
+  <li class="booki-section">Réglages avancés</li>
+
+  <li><a href="/cinelerra/ch014_les-points-clefs">Les images-clés</a></li>
+
+  <li><a href="/cinelerra/ch015_son">Effets sur le son</a></li>
+
+  <li><a href="/cinelerra/ch016_correction-couleur">Correction des couleurs</a></li>
+
+  <li><a href="/cinelerra/ch017_titrage">Titrage</a></li>
+
+  <li class="booki-section">Les points forts de Cinelerra</li>
+
+  <li><a href="/cinelerra/ch019_fondu">Fondu</a></li>
+
+  <li><a href="/cinelerra/ch020_zoom-et-recadrage">Zoom et recadrage</a></li>
+
+  <li><a href="/cinelerra/ch021_stop-motion">Stop-motion</a></li>
+
+  <li><a href="/cinelerra/ch022_transparence-et-superposition">Transparence et incrustation</a></li>
+
+  <li><a href="/cinelerra/ch023_creerun-masque">Animation par les masques</a></li>
+
+  <li><a href="/cinelerra/ch024_motion-tracking">Motion tracking</a></li>
+
+  <li class="booki-section">Annexes</li>
+
+  <li><a href="/cinelerra/ch026_installation">Installation</a></li>
+
+  <li><a href="/cinelerra/ch027_conversion-acquisition">Conversion et acquisition de médias</a></li>
+
+  <li><a href="/cinelerra/ch028_glossaire">Glossaire</a></li>
+
+  <li><a href="/cinelerra/ch029_ressources">Ressources</a></li>
+
+  <li><a href="/cinelerra/ch030_credits">Crédits</a></li>
+</ul>
