@@ -32,51 +32,53 @@ Note: To translate in english...
      - en ligne: b, i, u, span, strong, emph, ...
      => [Code] Créer 2 listes de balises à traiter
  - Identifier les éléments suivants:
-   - images <img src= alt=> (tirer la légende de "alt")
-   - liens <a href=>
+   - images `<img src= alt=>` (tirer la légende de "alt")
+   - liens `<a href=>`
    - tables (non gérées: afficher le contenu brut)
- - Traduire les caractères spéciaux (au moins "&nbsp;")
+ - Traduire les caractères spéciaux (au moins `"&nbsp;"`)
 
 A voir ultérieurement:
- - sélection d'une zone particulière (ex: <div> Wikipedia)
+ - sélection d'une zone particulière (ex: `<div>` Wikipedia)
  - inclusion des images "inline" ou via ancre (approche préférée)
 
 ## Quelques exemples de définition des styles
 Pour:
-    <p>
-    <p class="indente">
-    <ul class="indente">
+ - `<p>`
+ - `<p class="indente">`
+ - `<ul class="indente">`
 
 Produire les styles suivants:
-    "Style_p"
-    "Style_p_indente" + parent "Style_p"
-    "Style_ul_indente" (+ parent "Style_ul")
- 
-    # p
-    police="arial"
+ - "Style_p"
+ - "Style_p_indente" + parent "Style_p"
+ - "Style_ul_indente" (+ parent "Style_ul")
 
-    # indente
-    color="red"
+Exemple de définition CSS:
+ - `# p`
+ - `police="arial"`
 
-    # p indente
-    police="deja vu"
+ - `# indente`
+ - `color="red"`
 
-    # ul indente
+ - `# p indente`
+ - `police="deja vu"`
+
+ - `# ul indente`
 
 
 Pour:
-    <span class="mots-clés">
-    <strong class="mots-clés">
+ - `<span class="mots-clés">`
+ - `<strong class="mots-clés">`
 
-    Style_mots-cles
-    Style_mots-cles
+Produire:
+ - Style_mots-cles
+ - Style_mots-cles
 
 ## Besoins pour l'API
  - Ajouter une page, un cadre (texte/image)
  - Créer un style "paragraphe" ou "caractère" en attribuant un nom et un parent
  - Accéder aux styles existants
  - Ecrire du texte dans un cadre texte (transformé au préalable)
-   &nbsp; &.+;
+   `&nbsp;` `&.+;`
  - Appliquer le style à une sélection de texte
  - Importer une image dans un cadre image
  - (Besoin à part -- autre sript) : Lier des cadres
