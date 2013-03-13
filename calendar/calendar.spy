@@ -26,7 +26,7 @@ class ScribusCalendarUI(QDialog) :
             qApp.processEvents()
 
     def accept(self) :
-        self.calendar.setYear(self.window.year.value())
+        self.calendar.setYear(self.window.spinBox.value())
         self.calendar.create()
         self.calendar.initializeDocument()
 
@@ -35,9 +35,9 @@ class ScribusCalendarUI(QDialog) :
 
 class ScribusCalendar :
 
-    def __init__(self):
-        self.create()
-        self.initializeDocument()
+    #def __init__(self):
+        # self.create()
+        # self.initializeDocument()
 
     def setYear(self, year):
         self.year = year
@@ -65,5 +65,5 @@ class ScribusCalendar :
         #self.document.setUnit(Scripter.UNIT_POINTS)
 
 def run():
-    calendar = Calendar()
+    calendar = ScribusCalendar()
     ui = ScribusCalendarUI(calendar)
