@@ -29,6 +29,8 @@ mod_typoGrid = imp.load_source("typographic_grid", "../typographic_grid.spy")
 
 
 class Test_ScribusTypoGridUI(object):
+    """Class to handle definition of UI parameters in tests without running a real UI"""
+
     def __init__(self, gridSpec):
         """Define grid specification as array describing 'page', 'margins', 'leading' and 'grid'"""
         self.gridSpec = gridSpec
@@ -45,45 +47,94 @@ class Test_ScribusTypoGridUI(object):
 
 
 class Test_ScribusTypoGrid(mod_typoGrid.ScribusTypoGrid):
+    """Class completed with test functionalities for validation of parent"""
+
+    # Space width for each indentation level
+    indentSize = 2
+
+    # Param Description : tuple(CategoryName, CategoryPath, CategoryContent)
+    #   - CategoryContent can itself be a full parameter description
+    #   - CategoryContent as a constant string refers to a actual param value
+    paramsList \
+        = [("Page",
+            "page", 
+            ["width", "height"]),
+           ("Margins",
+            "margins",
+            ["left", "right", "top", "bottom"]),
+           ("Leading interval",
+            "leading",
+            ["target", "computed", "computed_lower", "computed_upper"]),
+           ("Grid",
+            "grid", 
+            [("Limits", 
+              "", 
+              ["left", "right", "top", "bottom",
+               "height", "width",
+               "nb_baselines"]),
+             ("Vertical", 
+              "vertical", 
+              ["nb_div", "gutter"]),
+             ("Horizontal", 
+              "horizontal", 
+              ["nb_div", "gutter"]),
+             ]
+            )
+           ]
+
+
     def __init__(self, ui):
         super(Test_ScribusTypoGrid, self).__init__(ui)
         return
 
 
+    def describeParams(self, paramsList, categoryPathList = []):
+        """Return a list of strings describing key/value pairs for parameters 
+within a parameters list."""
+        
+        paramsDescription = []
+        indentLevel = len(categoryPathList)
+        indent = ' ' * indentLevel * Test_ScribusTypoGrid.indentSize
+        for elem in paramsList:
+            if isinstance(elem, basestring):
+                # If elem is a string, we are ready for param evaluation
+                categoryAccess = None
+                for category in categoryPathList:
+                    if categoryAccess == None:
+                        categoryAccess = getattr(self, category)
+                    elif category == "":
+                        # Do nothing : categoryAccess is already well set 
+                        # (condition is kept here for clarity)
+                        pass
+                    else:
+                        categoryAccess = categoryAccess[category]
+
+                Description = indent + elem + " = " \
+                    + str(categoryAccess[elem])
+                paramsDescription.append(Description)
+            else:
+                # There are more nesting levels in the categories
+                (CategoryName, categoryId, categoryParamsList) = elem
+                paramsDescription.append(indent + CategoryName + ":")
+                pathList = list(categoryPathList)
+                pathList.append(categoryId)
+                paramsDescription.extend(self.describeParams(categoryParamsList,
+                                                             pathList))
+                # Group top-level categories by sets
+                if indentLevel == 0:
+                    paramsDescription.append("")
+
+        return paramsDescription
+
+
     def describeGridSpec(self):
         """Generate a summary string of grid specifications"""
         gridSpecs = [ ]
-        gridSpecs.append("Page:")
-        gridSpecs.append("  width = " + str(self.page["width"]))
-        gridSpecs.append("  height = " + str(self.page["height"]))
-        gridSpecs.append("")
-        gridSpecs.append("Margins:")
-        gridSpecs.append("  left = " + str(self.margins["left"]))
-        gridSpecs.append("  right = " + str(self.margins["right"]))
-        gridSpecs.append("  top = " + str(self.margins["top"]))
-        gridSpecs.append("  bottom = " + str(self.margins["bottom"]))
-        gridSpecs.append("")
-        gridSpecs.append("Leading interval:")
-        gridSpecs.append("  target = " + str(self.leading["target"]))
-        gridSpecs.append("  computed = " + str(self.leading["computed"]))
-        gridSpecs.append("  computed_lower = " + str(self.leading["computed_lower"]))
-        gridSpecs.append("  computed_upper = " + str(self.leading["computed_upper"]))
-        gridSpecs.append("")
-        gridSpecs.append("Grid:")
-        gridSpecs.append("  Limits:")
-        gridSpecs.append("    left = " + str(self.grid["left"]))
-        gridSpecs.append("    right = " + str(self.grid["right"]))
-        gridSpecs.append("    top = " + str(self.grid["top"]))
-        gridSpecs.append("    bottom = " + str(self.grid["bottom"]))
-        gridSpecs.append("    height = " + str(self.grid["height"]))
-        gridSpecs.append("    width = " + str(self.grid["width"]))
-        gridSpecs.append("    baseline_nb = " + str(self.grid["nb_baselines"]))
-        gridSpecs.append("  Vertical:")
-        gridSpecs.append("    nb_div = " + str(self.grid["vertical"]["nb_div"]))
-        gridSpecs.append("    gutter = " + str(self.grid["vertical"]["gutter"]))
-        gridSpecs.append("  Horizontal:")
-        gridSpecs.append("    nb_div = " + str(self.grid["horizontal"]["nb_div"]))
-        gridSpecs.append("    gutter = " + str(self.grid["horizontal"]["gutter"]))
+        gridSpecs.extend(self.describeParams(Test_ScribusTypoGrid.paramsList))
+                    
+        # Remove the last blank record added after each top-level category
+        gridSpecs.pop()
+                                                         
         return "\n".join(gridSpecs)
 
 
