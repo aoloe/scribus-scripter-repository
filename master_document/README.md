@@ -12,6 +12,12 @@ Synchroniser le formatage par rapport à un document maître et produire un rés
 
 ## Todo
 
+- Ask for the configuration file (yaml) to be read.
+- Read the list of styles in the master document.
+- Open the first document in the list.
+- Make sure that each style exists.
+- Overwrite the definition from the styles defined in the master document.
+
 ## Manage the list of the project files
 
 La liste des fichiers est gérée dans un fichier de configuration Yaml.
