@@ -43,26 +43,26 @@ A voir ultérieurement:
 
 ## Quelques exemples de définition des styles
 Pour:
- - `<p>`
- - `<p class="indente">`
- - `<ul class="indente">`
+    <p>
+    <p class="indente">
+    <ul class="indente">
 
 Produire les styles suivants:
- - "Style_p"
- - "Style_p_indente" + parent "Style_p"
- - "Style_ul_indente" (+ parent "Style_ul")
+ - `Style_p`
+ - `Style_p_indente` + parent `Style_p`
+ - `Style_ul_indente` (+ parent `Style_ul`)
 
 Exemple de définition CSS:
- - `# p`
- - `police="arial"`
+    # p
+    police="arial"
 
- - `# indente`
- - `color="red"`
+    # indente
+    color="red"
 
- - `# p indente`
- - `police="deja vu"`
+    # p indente
+    police="deja vu"
 
- - `# ul indente`
+    # ul indente
 
 
 Pour:
