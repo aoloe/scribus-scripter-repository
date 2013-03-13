@@ -42,17 +42,21 @@ A voir ultérieurement:
  - inclusion des images "inline" ou via ancre (approche préférée)
 
 ## Quelques exemples de définition des styles
+
 Pour:
+
     <p>
     <p class="indente">
     <ul class="indente">
 
 Produire les styles suivants:
+
  - `Style_p`
  - `Style_p_indente` + parent `Style_p`
  - `Style_ul_indente` (+ parent `Style_ul`)
 
 Exemple de définition CSS:
+
     # p
     police="arial"
 
@@ -66,21 +70,25 @@ Exemple de définition CSS:
 
 
 Pour:
+
  - `<span class="mots-clés">`
  - `<strong class="mots-clés">`
 
 Produire:
+
  - Style_mots-cles
  - Style_mots-cles
 
 ## Besoins pour l'API
- - Ecrire du texte dans un cadre texte (transformation au préalable, eg.`&nbsp;` `&.+;`)
-   - Méthode "insert()" ou "append()" => "append()" : peut prendre en argument un bout de texte ou le texte complet.
- - Créer un style "paragraphe" ou "caractère" en attribuant un nom et un parent
- - Lister les styles existants
- - Appliquer le style à une sélection de texte
- - (Option pour étendre la fonctionnalité à plusieurs pages) Ajouter une page, un cadre (texte/image)
+
+- Ecrire du texte dans un cadre texte (transformation au préalable, eg.`&nbsp;` `&.+;`)
+  - Méthode "insert()" ou "append()" => "append()" : peut prendre en argument un bout de texte ou le texte complet.
+- Créer un style "paragraphe" ou "caractère" en attribuant un nom et un parent
+- Lister les styles existants
+- Appliquer le style à une sélection de texte
+- (Option pour étendre la fonctionnalité à plusieurs pages) Ajouter une page, un cadre (texte/image)
 
 Mis de côté:
+
  - (pas d'import image pour l'instant) Importer une image dans un cadre image
  - (Besoin géré dans une fonctionnalité à part -- autre sript) : Lier des cadres
