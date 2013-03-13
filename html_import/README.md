@@ -74,11 +74,12 @@ Produire:
  - Style_mots-cles
 
 ## Besoins pour l'API
- - Ajouter une page, un cadre (texte/image)
+ - Ecrire du texte dans un cadre texte (transformation au préalable, eg.`&nbsp;` `&.+;`)
+   - Méthode "insert()" ou "append()" => "append()" : peut prendre en argument un bout de texte ou le texte complet.
  - Créer un style "paragraphe" ou "caractère" en attribuant un nom et un parent
- - Accéder aux styles existants
- - Ecrire du texte dans un cadre texte (transformé au préalable)
-   `&nbsp;` `&.+;`
+ - Lister les styles existants
  - Appliquer le style à une sélection de texte
- - Importer une image dans un cadre image
- - (Besoin à part -- autre sript) : Lier des cadres
+ - (Option pour étendre la fonctionnalité à plusieurs pages) Ajouter une page, un cadre (texte/image)
+Mis de côté:
+ - (pas d'import image pour l'instant) Importer une image dans un cadre image
+ - (Besoin géré dans une fonctionnalité à part -- autre sript) : Lier des cadres
