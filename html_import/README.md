@@ -11,18 +11,21 @@ Import html into scribus
 Don't do :
 - CSS import
 
-Note: To translate in english...
 ## Analyse d'un exemple en provenance de FmFr
+
 ### Hypothèse : 1 fichier HTML pour tout le document
- - Possibilités d'extension :
-   - Autre scripts qui ferait des appels successifs pour les imports
-   - Script qui génère un fichier HTML en sortie à partir du lot
+
+Possibilités d'extension :
+
+- Autre scripts qui ferait des appels successifs pour les imports
+- Script qui génère un fichier HTML en sortie à partir du lot
 
 ### Etapes:
+
  - Construire l'arbre XML (libXML)
  - Répertorier toutes les attributs "class", pas les "id" car style unique
-   (sauf si même "id" dans des fichiers distincts, ex: pages Wikipedia
-    => à concaténer multiples pages qui transformeraient "id" en "class"
+   (sauf si même "id" dans des fichiers distincts, ex: pages Wikipedia  
+    => à concaténer multiples pages qui transformeraient "id" en "class"  
     => outil à part)
  - Identifier les 2 styles Scribus "paragraphe" et "caractères":
    - Le nom de la classe sera le nom du style
@@ -38,6 +41,7 @@ Note: To translate in english...
  - Traduire les caractères spéciaux (au moins `"&nbsp;"`)
 
 A voir ultérieurement:
+
  - sélection d'une zone particulière (ex: `<div>` Wikipedia)
  - inclusion des images "inline" ou via ancre (approche préférée)
 
