@@ -80,6 +80,7 @@ Produire:
  - Lister les styles existants
  - Appliquer le style à une sélection de texte
  - (Option pour étendre la fonctionnalité à plusieurs pages) Ajouter une page, un cadre (texte/image)
+
 Mis de côté:
  - (pas d'import image pour l'instant) Importer une image dans un cadre image
  - (Besoin géré dans une fonctionnalité à part -- autre sript) : Lier des cadres
