@@ -1,5 +1,29 @@
 # Script Master Document
 
+Synchroniser le formatage par rapport à un document maître et produire un résultat commun.
+
+## Features
+
+- Gérer une liste de fichier qui dépendent d'un document maître
+- Synchroniser les styles par rapport au document maître
+- Synchroniser les numéros de page entre les documents
+- Synchroniser les gabartits par rapport au document maître
+- Exporter les fichiers vers le format de sortie
+
+## Todo
+
+## Manage the list of the project files
+
+La liste des fichiers est gérée dans un fichier de configuration Yaml.
+
+    masterpage:
+    - fmfr-template.sla
+    files:
+    - fmfrsection01.sla
+    - fmfrsection02.sla
+
+## Notes
+
 Filter Book
 - XML généré
 - yaml
@@ -15,3 +39,5 @@ Filter Book
 
 ## Export all to pdf ebook/html
 (exporter le tout vers plusieurs pdf, un pdf par fichier et export ebook et html et txt)
+
+

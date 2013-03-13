@@ -1,0 +1,28 @@
+## name = Master Document
+## title = Master Document
+## description = Master Document
+## subroutine = run
+## menu = &Extras
+
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
+from PyQt4.uic import loadUi
+
+import mikro
+
+import os
+
+class ScribusMasterDocument :
+
+    def __init__(self):
+        self.readConfiguration()
+
+    def readConfiguration(self):
+        print "..."
+
+
+def run():
+    master = ScribusMasterDocument()
+    # ui = ScribusCalendarUI(calendar)
+
+
