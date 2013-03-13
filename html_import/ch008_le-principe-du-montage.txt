@@ -1,0 +1,41 @@
+<div id="main-content">
+  <h1>Le principe du montage</h1>
+
+  <p>Dans ce premier chapitre de la section «<span class="emphase">Premier montage</span>», nous aborderons le montage d'un point de vue général et théorique, ce qui nous permettra d'expliquer comment les outils numériques de montage avancés ont abouti à une organisation commune de l'interface en 4 grandes fonctionnalités (voir plus bas le chapitre <u><strong>Présentation de l'interface</strong></u>). Nous les détaillerons dans un 2ème chapitre en décrivant leur mise en œuvre dans <span class="software">Cinelerra</span>, ce qui nous permettra ensuite d'aborder la notion de montage non linéaire (en opposition au montage linéaire qui ne permet pas le montage de plusieurs pistes en même temps) via la ligne de temps (ou <span class="anglicisme">timeline</span>). Nous expliquerons rapidement comment ajouter un effet. Ainsi, nous aurons fait le tour des fonctionnalités de base de montage vidéo avec <span class="software">Cinelerra</span>.</p>
+
+  <h2>La magie dans le numérique</h2>
+
+  <p>Pour commencer, nous voulons affirmer que le montage est avant tout un <strong>moyen d'expression</strong>, une pratique artistique même si elle nécessite une certaine technicité. L'idéal étant de maîtriser la technique - en l'occurrence le logiciel - et ses particularités propres, au point de ne plus y penser lors du montage pour n'avoir à se concentrer que sur l'assemblage créatif d'images et de sons. L’essence est là : choisir des fragments de médias, images fixes, séquences animées, paroles, bruitages, ambiances, etc, les organiser dans le temps, éventuellement y apporter des effets, afin de créer du sens avec cette matière, de raconter des histoires.</p>
+
+  <p>À l'ère du numérique, cela revient à importer des fichiers médias, à les découper en fragments plus ou moins longs, et à les coller les uns aux autres à force de clics de souris et de raccourcis clavier, pour créer des continuités et des discontinuités dans le récit. Enfin, suivant les performances et les capacités du logiciel utilisé, on choisit des effets spéciaux, des réglages de couleurs et de sons, pour les superposer, les agrandir, les tourner, les cacher, les accélérer suivant son inspiration et ses objectifs pour impressionner la rétine et les tympans de son auditoire...</p>
+
+  <h2>Les ingrédients de l'alchimiste</h2>
+
+  <p>Les images et sons bruts (non traités, non découpés, provenant directement de l'appareil de capture), de nos jours disponibles le plus souvent sous forme de fichiers informatiques, sont appelés <span class="anglicisme">rushes</span> (au singulier un <span class="anglicisme">rush</span>) ou épreuves de tournage. Le <span class="glossaire">dérushage</span> est l'action de choisir les rushes que l'on compte utiliser dans son montage. À l'heure actuelle, est inclus dans ce terme l'action d'importer les images et les sons capturés sur l'ordinateur.</p>
+
+  <p>L'élément de base du montage est le <span class="glossaire">plan</span>. Sa définition officielle est : "suite continue d'images enregistrées par la caméra au cours d'une seule prise (entre deux coupes)". Un plan peut être d'une durée très variable. Cas particulier, dans l'animation, un plan peut s'étendre à une suite de dessins décrivant une continuité de mouvement (dessin animé), une image fixe, un titre...</p>
+
+  <p>Un fragment de film est appelé <span class="glossaire">séquence</span>. Même si l'identification des limites d'une séquence varie souvent en fonction de la culture du vidéaste, elles correspondent usuellement à une rupture dans l'unité de temps, d'espace ou d'action.</p>
+
+  <p>Après le plan, la plus petite unité de temps d'un film est l'<span class="glossaire">image</span>. Une seconde de film est généralement composée de 24 à 30 images.</p>
+
+  <address>
+    Éclairage historique : L'expérience montre qu'une cadence d'au moins 16 images par seconde permet d'obtenir l'illusion d'un mouvement. Le nombre d'images par seconde des premiers films de cinéma était de 16 ou 18, ce qui donne l'impression d'un mouvement saccadé ou accéléré. Certaines caméras sont conçues pour enregistrer au moins 50 images par seconde, ce qui procure une sensation de plus grande fluidité et précision. Aujourd'hui en Europe, la plupart des caméras capturent 25 images par seconde.
+  </address>
+
+  <h2>Monter aujourd'hui, quelque soit l'outil</h2>
+
+  <p>Il existe aujourd'hui de nombreux programmes de montage qui répondent à des usages différents : assemblage basique, animation, court métrage, montage en direct. Les plus fréquemment utilisés sont malgré tout basés sur le même principe de fonctionnement, qui se traduit ainsi en terme d'interface :</p>
+
+  <ul>
+    <li>une <span class="emphase">bibliothèque</span> de rushes visuels et sonores ;</li>
+
+    <li>une fenêtre de <span class="emphase">visualisation des rushes</span> permettant de choisir les fragments à intégrer au montage ;</li>
+
+    <li>une <span class="emphase">timeline</span> ou ligne de temps où l'on organise les fragments choisis, sur une ou plusieurs pistes afin de permettre des chevauchements, et au sein de laquelle nous retouchons les coupes et les paramètres ;</li>
+
+    <li>une fenêtre de<span class="emphase">visionnage du montage</span> en cours d'élaboration.</li>
+  </ul>
+
+  <p>Nous retrouverons également ces fenêtres dans <span class="software">Cinelerra</span>.</p>
+</div>
