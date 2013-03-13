@@ -16,8 +16,7 @@ Synchroniser le formatage par rapport à un document maître et produire un rés
 
 La liste des fichiers est gérée dans un fichier de configuration Yaml.
 
-    masterpage:
-    - fmfr-template.sla
+    masterpage: fmfr-template.sla
     files:
     - fmfrsection01.sla
     - fmfrsection02.sla

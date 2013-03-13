@@ -12,17 +12,19 @@ import mikro
 
 import os
 
+import yaml
+
 class ScribusMasterDocument :
 
     def __init__(self):
         self.readConfiguration()
 
     def readConfiguration(self):
-        print "..."
-
+        filename = os.path.join(os.path.dirname(__file__), 'configuration.yaml')
+        configuration = open(filename, 'r')
+        self.configuration = yaml.load(configuration)
+        print self.configuration
 
 def run():
     master = ScribusMasterDocument()
     # ui = ScribusCalendarUI(calendar)
-
-
