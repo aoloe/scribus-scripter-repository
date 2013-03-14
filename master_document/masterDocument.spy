@@ -20,11 +20,16 @@ class ScribusMasterDocument :
         self.readConfiguration()
 
     def readConfiguration(self):
-        filename = os.path.join(os.path.dirname(__file__), 'configuration.yaml')
-        configuration = open(filename, 'r')
-        self.configuration = yaml.load(configuration)
-        print self.configuration
+        #filename = os.path.join(os.path.dirname(__file__), 'configuration.yaml')
+        filename = QFileDialog.getOpenFileName(None, 'Open file', os.path.dirname(__file__))
+        if filename != "" :
+            configuration = open(filename, 'r')
+            self.configuration = yaml.load(configuration)
+            print self.configuration
+        else :
+            print "pas de fichier"
 
 def run():
-    master = ScribusMasterDocument()
-    # ui = ScribusCalendarUI(calendar)
+    masterDocument = ScribusMasterDocument()
+    # ui = ScribusMasterDocumentUI(masterDocument)
+    
