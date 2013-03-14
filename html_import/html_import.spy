@@ -1,0 +1,64 @@
+# Encoding must be on 1st or 2nd line : http://www.python.org/dev/peps/pep-0263
+# -*- coding: utf-8-unix;  -*-
+#
+#
+# Header for Scribus Scripter
+# Only comments allowed from start of file to end of header -- no blank lines
+# 
+## name = HTML Scripter
+## title = HTML Scripter
+## description = Parse and import an HTML document file within a Scribus document
+## subroutine = run
+## menu = &File
+
+'''
+Copyright (C) 2013 A. Rimoldi <a.l.e@ideale.ch>
+                   C. Gémy <cedric@cgemy.com>
+                   C. Schockaert <R3vLibre@citadels.be>
+
+##This extension draws a typographic grid for use within Scribus documents.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+'''
+
+
+try:
+    import mikro
+except ImportError:
+    pass
+
+import os
+import sys 
+print "Running"
+__file__="/home/r3vlibre/dev/Scribus/scripter.git/html_import/html_import.spy"
+print __file__
+
+scriptDir = os.path.dirname(__file__)
+sys.path.append(scriptDir)
+print "sys.path="+str(sys.path)
+
+import html_import_read
+import html_import_write
+
+def run_steps(testInput = None):
+    importWrite = html_import_write.ScribusHTMLImportWrite(None)
+    print importWrite
+    print importWrite.displayInfos()
+    return
+
+def run():
+    print "Coucou !"
+    run_steps()
+    return
+
