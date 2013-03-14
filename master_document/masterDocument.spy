@@ -18,16 +18,26 @@ class ScribusMasterDocument :
 
     def __init__(self):
         self.readConfiguration()
+        self.readMasterStyles()
 
     def readConfiguration(self):
         #filename = os.path.join(os.path.dirname(__file__), 'configuration.yaml')
-        filename = QFileDialog.getOpenFileName(None, 'Open file', os.path.dirname(__file__))
+        filename = str(QFileDialog.getOpenFileName(None, 'Open file', os.path.dirname(__file__)))
         if filename != "" :
+            self.pathBase = os.path.dirname(filename)
+            print self.pathBase
             configuration = open(filename, 'r')
             self.configuration = yaml.load(configuration)
             print self.configuration
         else :
             print "pas de fichier"
+
+    def readMasterStyles(self):
+        print os.path.join(self.pathBase, self.configuration['masterpage'])
+        if os.path.exists(os.path.join(self.pathBase, self.configuration['masterpage'])) :
+           Scripter.openDocument(os.path.join(self.pathBase, self.configuration['masterpage']))
+           document = Scripter.activeDocument
+           print document.styles
 
 def run():
     masterDocument = ScribusMasterDocument()

@@ -9,10 +9,10 @@ Synchroniser le formatage par rapport à un document maître et produire un rés
 - Synchroniser les numéros de page entre les documents
 - Synchroniser les gabartits par rapport au document maître
 - Exporter les fichiers vers le format de sortie
+- Le template peut être un fichier séparé ou bien un fichier de la chaîne
 
 ## Todo
 
-- Ask for the configuration file (yaml) to be read.
 - Read the list of styles in the master document.
 - Open the first document in the list.
 - Make sure that each style exists.
@@ -22,10 +22,13 @@ Synchroniser le formatage par rapport à un document maître et produire un rés
 
 La liste des fichiers est gérée dans un fichier de configuration Yaml.
 
-    masterpage: fmfr-template.sla
+    masterpage: ../template/fmfr-template.sla
     files:
     - fmfrsection01.sla
     - fmfrsection02.sla
+    
+    
+Lors du démarrage du script, une fenêtre s'ouvre pour que vous indiquiez où est le fichier yaml à utiliser pour ce livre.
 
 ## Notes
 
