@@ -1,0 +1,151 @@
+#-*- coding=utf-8 -*-
+
+## name = Html import
+## title = Html import
+## description = Import HTML content and set style on it
+## shortcut = 
+## subroutine = run
+
+# from PyQt4.QtCore import *
+# from PyQt4.QtGui import *
+
+from lxml import etree
+from lxml import html
+'''
+>>> tree = etree.parse('file.html')
+>>> tree.getroot()
+
+Clean HTML Code
+>>>from lxml.html.clean import Cleaner
+>>> cleaner = Cleaner(page_structure=False, links=False)
+>>> print cleaner.clean_html(html)
+
+root.xpath("//article[@type='news']")
+root.getchildren()
+'''
+
+class Styles():
+	def __init__(self,name):
+		self.name = name
+	def __str__(self):
+		return self.name
+	def __unicode__(self):
+		return self.name
+	def get_name():
+		return self.name
+
+class CarStyles(Styles):
+	def __init__(self, name):
+		self.name = name
+		#super(CarStyles,self).__init__(name)
+	'''def __unicode__(self):
+		return self.name
+		#return super(CarStyles,self).__unicode__(name)
+	def get_name():
+		return self.name'''
+
+class ParaStyles(Styles):
+	def __init__(self,name):
+		self.name = name
+		#super(ParaStyles,self).__init__(name)
+	'''def __unicode__(self):
+		return self.name
+		#return super(ParaStyles,self).__unicode__(name)
+	def get_name():
+		return self.name'''
+
+class Text():
+	def __init__(self):
+		self.paragraphs=[]
+	def add_para(self,para):
+		self.paragraphs.append(para)
+
+class Paragraph():
+	def __init__(self,stylename):
+		self.name = stylename
+		self.text_chunks = []
+	def add_text_chunk(self,text,carstyle):
+		text_chunk = (text,carstyle)
+		self.text_chunks.append(text_chunk)
+	def get_styles(self):
+		return
+
+class HTMLImportRead():
+	car = ['b','i','span','a','u','cite']
+	para = ['h1','h2','p','ul','li','ol','pre','adress','blockquote']
+	
+	def __init__(self):
+		file='/home/cedric/sources/scribus_patchs/1.5-tests/scripter2/scribus-scripter-repository/html_import/ch008_le-principe-du-montage.txt'
+		self.htmlfile=etree.parse(file)
+		# attention aux entites html avec le parsing xml
+		self.root = self.htmlfile.getroot()
+		self.text = ()
+		self.tags = ()
+		self.paragraphs_and_tags = []
+		self.text_content=""
+
+	def top_elements(self):
+		''' Get top level elements : generally might be html, in Fmfr is h1 '''
+		for elem in self.root:
+			print unicode(elem.tag) +" : "+ unicode(elem.text)+" : TAIL : " +unicode(elem.tail)
+	
+	def get_styles(self):
+		#self.classes = self.root.xpath('//@class')
+		car_expr = '(//b/@class|//i/@class|//span/@class|//a/@class|//u/@class|//cite/@class)'
+		para_expr = '(//h1/@class|//h2/@class|//p/@class|//li/@class|//pre/@class|//adresse/@class)'
+		car_styles=list(set(self.root.xpath(car_expr)))
+		para_styles= HTMLImportRead.para+list(set(self.root.xpath(para_expr)))
+		self.styles = {'car':[],'par':[]}
+		for style_name in car_styles:
+			self.styles['car'].append(CarStyles(style_name)) 
+		for style_name in para_styles:
+			self.styles['par'].append(ParaStyles(style_name))
+		#'car':car_styles, 'para':para_styles}
+		return self.styles
+	
+	def parse_childs(self,elem):
+		self.paragraphs = Paragraphs()
+		self.text = Text()
+		for field in elem.iterchildren(): 
+			if field.tail == None :
+				field.tail = ""
+			if field.text == None:
+				field.text = ""
+			if fieds.tag not in HTMLImportRead.para:
+				para.add_text_chunk(self,text,carstyle)
+			else :
+				self.text.add_para(para)
+			#print '<%s>: [%s] {%s}' % (field.tag.strip(), field.text.strip(), field.tail.strip())
+			self.parse_childs(field)
+		return
+		
+	def parse_childs(self,elem, paragraph):
+		if elem in HTMLImportRead.para : 
+            paragraph = Paragraph()
+		
+		for field in elem.iterchildren(): 
+			if field.tail == None :
+				field.tail = ""
+			if field.text == None:
+				field.text = ""
+			if field.tag not in HTMLImportRead.para:
+				self.paragraphs.add_text_chunk(self,text,carstyle)
+			#print '<%s>: [%s] {%s}' % (field.tag.strip(), field.text.strip(), field.tail.strip())
+			self.parse_childs(field, paragraph)
+		if elem in HTMLImportRead.para : 
+			self.text.add_para(paragraph)
+		return
+				
+	def html_read(self):
+		self.text = Text()
+		self.parse_childs(self.root, None)
+		return
+
+htmlimport = HTMLImportRead()
+print htmlimport.get_styles()
+#htmlimport.html_read()
+#print htmlimport.text_content
+
+
+##htmlimport.top_elements()
+
