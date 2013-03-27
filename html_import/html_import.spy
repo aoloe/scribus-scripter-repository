@@ -41,7 +41,10 @@ except ImportError:
 import os
 import sys 
 print "Running"
-__file__="/home/r3vlibre/dev/Scribus/scripter.git/html_import/html_import.spy"
+try :
+    __file__ 
+except NameError :
+    __file__="/home/r3vlibre/dev/Scribus/scripter.git/html_import/html_import.spy"
 print __file__
 
 scriptDir = os.path.dirname(__file__)
