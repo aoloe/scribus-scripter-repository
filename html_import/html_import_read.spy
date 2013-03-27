@@ -1,26 +1,13 @@
-# -*- coding: utf-8-unix;  -*-
-# Above line defines encoding : http://www.python.org/dev/peps/pep-0263/
+#-*- coding=utf-8 -*-
 
-'''
-Copyright (C) 2013 A. Rimoldi <a.l.e@ideale.ch>
-                   C. Gémy <cedric@cgemy.com>
-                   C. Schockaert <R3vLibre@citadels.be>
+## name = Html import
+## title = Html import
+## description = Import HTML content and set style on it
+## shortcut = 
+## subroutine = run
 
-##This extension draws a typographic grid for use within Scribus documents.
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-'''
+# from PyQt4.QtCore import *
+# from PyQt4.QtGui import *
 
 from lxml import etree
 from lxml import html
@@ -44,7 +31,7 @@ class Styles():
 		return self.name
 	def __unicode__(self):
 		return self.name
-	def getName(self):
+	def get_name():
 		return self.name
 
 class CarStyles(Styles):
@@ -73,32 +60,26 @@ class Text():
 	def add_para(self,para):
 		self.paragraphs.append(para)
 
-        def getParagraphs(self):
-                return self.paragraphs
-
 class Paragraph():
-	def __init__(self,style):
-		self.style = style
+	def __init__(self,stylename):
+		self.name = stylename
 		self.text_chunks = []
 	def add_text_chunk(self,text,carstyle):
 		text_chunk = (text,carstyle)
 		self.text_chunks.append(text_chunk)
-	def getStyle(self):
-		return self.style
+	def get_styles(self):
+		return
 
-        def get_text_chunks(self):
-                return self.text_chunks
-
-class ScribusHTMLImportRead():
+class HTMLImportRead():
 	car = ['b','i','span','a','u','cite']
-	para = ['h1','h2','p','ul','li','ol','pre','address','blockquote']
+	para = ['h1','h2','p','ul','li','ol','pre','adress','blockquote']
 	
 	def __init__(self):
-		file='/home/r3vlibre/dev/Scribus/scripter.git/html_import/examples/ch008_le-principe-du-montage.txt'
+		file='/home/cedric/sources/scribus_patchs/1.5-tests/scripter2/scribus-scripter-repository/html_import/ch008_le-principe-du-montage.txt'
 		self.htmlfile=etree.parse(file)
 		# attention aux entites html avec le parsing xml
 		self.root = self.htmlfile.getroot()
-#		self.text = ()
+		self.text = ()
 		self.tags = ()
 		self.paragraphs_and_tags = []
 		self.text_content=""
@@ -111,9 +92,9 @@ class ScribusHTMLImportRead():
 	def get_styles(self):
 		#self.classes = self.root.xpath('//@class')
 		car_expr = '(//b/@class|//i/@class|//span/@class|//a/@class|//u/@class|//cite/@class)'
-		para_expr = '(//h1/@class|//h2/@class|//p/@class|//li/@class|//pre/@class|//address/@class)'
+		para_expr = '(//h1/@class|//h2/@class|//p/@class|//li/@class|//pre/@class|//adresse/@class)'
 		car_styles=list(set(self.root.xpath(car_expr)))
-		para_styles= ScribusHTMLImportRead.para+list(set(self.root.xpath(para_expr)))
+		para_styles= HTMLImportRead.para+list(set(self.root.xpath(para_expr)))
 		self.styles = {'car':[],'par':[]}
 		for style_name in car_styles:
 			self.styles['car'].append(CarStyles(style_name)) 
@@ -122,24 +103,36 @@ class ScribusHTMLImportRead():
 		#'car':car_styles, 'para':para_styles}
 		return self.styles
 	
+	def parse_childs(self,elem):
+		self.paragraphs = Paragraphs()
+		self.text = Text()
+		for field in elem.iterchildren(): 
+			if field.tail == None :
+				field.tail = ""
+			if field.text == None:
+				field.text = ""
+			if fieds.tag not in HTMLImportRead.para:
+				para.add_text_chunk(self,text,carstyle)
+			else :
+				self.text.add_para(para)
+			#print '<%s>: [%s] {%s}' % (field.tag.strip(), field.text.strip(), field.tail.strip())
+			self.parse_childs(field)
+		return
+		
 	def parse_childs(self,elem, paragraph):
-		print "parse_childs('" + str(elem) + "', '" + str(paragraph) +"')"
-		if elem.tag in ScribusHTMLImportRead.para : 
-			print "Creating para for '" + str(elem.tag) +"'" 
-                        paragraph = Paragraph(ParaStyles("Para_StyleToDefine"))
+		if elem in HTMLImportRead.para : 
+            paragraph = Paragraph()
 		
 		for field in elem.iterchildren(): 
 			if field.tail == None :
 				field.tail = ""
 			if field.text == None:
 				field.text = ""
-			print '<%s>: [%s] {%s}' % (field.tag.strip(), field.text.strip(), field.tail.strip())
-			if field.tag not in ScribusHTMLImportRead.para:
-				print "Adding text_chunk for '" + str(field.tag) +"'" 				
-				paragraph.add_text_chunk(field.text,CarStyles("carstyle"))
+			if field.tag not in HTMLImportRead.para:
+				self.paragraphs.add_text_chunk(self,text,carstyle)
+			#print '<%s>: [%s] {%s}' % (field.tag.strip(), field.text.strip(), field.tail.strip())
 			self.parse_childs(field, paragraph)
-		if elem.tag in ScribusHTMLImportRead.para : 
-			print "Adding the para for '" + str(elem.tag) +"'" 
+		if elem in HTMLImportRead.para : 
 			self.text.add_para(paragraph)
 		return
 				
@@ -148,19 +141,11 @@ class ScribusHTMLImportRead():
 		self.parse_childs(self.root, None)
 		return
 
-        def getText(self):
-                return self.text
-
-
-
-htmlimport = ScribusHTMLImportRead()
-for style in htmlimport.get_styles()["car"]:
-	print str(style)
-for style in htmlimport.get_styles()["par"]:
-	print str(style)
-
+htmlimport = HTMLImportRead()
+print htmlimport.get_styles()
 #htmlimport.html_read()
 #print htmlimport.text_content
 
 
 ##htmlimport.top_elements()
+

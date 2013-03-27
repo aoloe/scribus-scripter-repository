@@ -41,22 +41,29 @@ except ImportError:
 import os
 import sys 
 print "Running"
+<<<<<<< HEAD
 try :
     __file__ 
 except NameError :
     __file__="/home/r3vlibre/dev/Scribus/scripter.git/html_import/html_import.spy"
+    #__file__="/home/r3vlibre/dev/Scribus/scripter.git/html_import/html_import.spy"
 print __file__
 
+#print "sys.argv = " + str(sys.argv)
 scriptDir = os.path.dirname(__file__)
 sys.path.append(scriptDir)
-print "sys.path="+str(sys.path)
+#print "sys.path="+str(sys.path)
 
 import html_import_read
 import html_import_write
 
 def run_steps(testInput = None):
-    importWrite = html_import_write.ScribusHTMLImportWrite(None)
-    print importWrite
+    importWrite = html_import_write.ScribusHTMLImportWrite()
+    print "importWrite: " + str(importWrite)
+    print "[start] importWrite.displayInfos()"
+    print importWrite.displayInfos()
+    importWrite.importHTML(html_import_read.ScribusHTMLImportRead())
+    print "[importHTML] importWrite.displayInfos()"
     print importWrite.displayInfos()
     return
 

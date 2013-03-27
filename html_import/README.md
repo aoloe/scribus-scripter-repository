@@ -87,9 +87,17 @@ Produire:
 
 - Ecrire du texte dans un cadre texte (transformation au préalable, eg.`&nbsp;` `&.+;`)
   - Méthode "insert()" ou "append()" => "append()" : peut prendre en argument un bout de texte ou le texte complet.
+  - existe en tant que :  TextAPI.insertText(text, position)
 - Créer un style "paragraphe" ou "caractère" en attribuant un nom et un parent
+  -  DocumentAPI.newStyle(StyleName, ParentStyle=None)
+  -  (code scribus scribusdoc.cpp) ParagraphStyle.setParent()
+  -  DocumentAPI.setStyle(StyleName,propertyName,PropertyValue) : exemple de propertyName : parentStyle, color, font
 - Lister les styles existants
+  - DocumentAPI.styles.cars()
+  - DocumentAPI.styles.para()
 - Appliquer le style à une sélection de texte
+  - existe : TextAPI.selectText(start, selectCount) 
+  - selection.applyStyle(styleName) (scribusdoc.cpp) itemSelection_applyCharStyle
 - (Option pour étendre la fonctionnalité à plusieurs pages) Ajouter une page, un cadre (texte/image)
 
 Mis de côté:

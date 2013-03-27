@@ -24,26 +24,78 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class ScribusHTMLImportWrite(object):
 
-    def __init__(self, HTMLImportRead_ParsedTree):
+    def __init__(self):
         # Bind class to active Scribus document
-        self.document = None
-#        self.document = Scripter.activeDocument
-        # Bind class to HTML Tree parsed by lxml.etree and handled by
-        # ScribusHTMLImportRead class
-        self.HTMLTree = HTMLImportRead_ParsedTree
+#        self.document = None
+        self.document = Scripter.activeDocument
+        self.HTMLTree = None
+        self.HTMLText = ""
 
 
     def importHTML(self, parsedHTMLTree):
+        # Bind class to HTML Tree parsed by lxml.etree and handled by
+        # ScribusHTMLImportRead class
+        self.HTMLTree = parsedHTMLTree
+        self.HTMLTree.html_read()
         self.setTextDestination()
-        
+        self.createStyles()
+        self.addTextAndStyles()
+        self.setHTMLTextInFrame()
+
 
     def setTextDestination(self):
-        # Use first selected text frame as destination
-#        for item in self.document.activePage.selection:
-#            if isinstance(item, Scripter.TextAPI):
-#                self.textDestination = item
-#                break
+        """Use selected text frame as destination -- only one frame allowed"""
+        items = self.document.activePage.selection
+        print "items='" + str(items) +"'"
+        if len(items) != 1:
+            print "One and only one item must be selected"
+            return
+
+        # Check if frame is a text frame
+        try:
+            print "TextLength = " + str(items[0].textLength)
+            self.textDestination = items[0]
+        except AttributeError:
+             print "Item selected must be a text frame"
+             return
+        
+        # Use this portion of code when path to TextAPI is found
+        #   -- it is not declared within Scripter
+        # if isinstance(items[0], Scripter.TextAPI):
+        #     self.textDestination = items[0]
+        # else:
+        #     print "Item selected must be a text frame"
+        #     return
+
         return
+
+
+    def createStyles(self):
+        print "Creating styles -- not implemented yet"
+        return
+
+
+    def addTextAndStyles(self):
+#        for paragraph in self.HTMLTree.getText().getParagraphs():
+        text = self.HTMLTree.getText()
+        print "text = " + str(text)
+        for paragraph in text.getParagraphs():
+            self.HTMLText = self.HTMLText + "[:ParaStyle = " \
+                + paragraph.getStyle().getName() + ": "
+            for (text, carStyle) in paragraph.get_text_chunks():
+                self.HTMLText = self.HTMLText + "{:CarStyle = " \
+                    + carStyle.getName() + ": " + text \
+                    + " :" + carStyle.getName() + ":}"
+            self.HTMLText = self.HTMLText + " :" \
+                + paragraph.getStyle().getName() + ":]"
+        return
+
+
+    def setHTMLTextInFrame(self):
+        try:
+            self.textDestination.insertText(self.HTMLText, 0)
+        except AttributeError:
+            print "A text frame must be selected for HTML import"
 
 
 ### Routines for tests and debug ###
@@ -59,26 +111,30 @@ within a parameters list."""
 #        print "categoryPathList = " + str(categoryPathList)
 #        print "indentLevel = " + str(indentLevel)
         for elem in paramsList:
+#            print "elem = "+ str(elem)
             if isinstance(elem, basestring):
                 # If elem is a string, we are ready for param evaluation
                 categoryAccess = None
                 for category in categoryPathList:
-                    if category == "":
-                        if indentLevel == 1:
-                            # There is no category, the element is at top level
-                            elemValue = getattr(self, elem)
-                        else:
-                            # categoryAccess is already well set 
+                    try:
+                        if category == "":
+                            if indentLevel == 1:
+                                # There is no category, 
+                                # the element is at top level
+                                elemValue = getattr(self, elem)
+                            else:
+                                # categoryAccess is already well set 
+                                elemValue = categoryAccess[elem]
+                        elif categoryAccess == None:
+                            categoryAccess = getattr(self, category)
                             elemValue = categoryAccess[elem]
-                    elif categoryAccess == None:
-                        categoryAccess = getattr(self, category)
-                        elemValue = categoryAccess[elem]
-                    else:
-                        categoryAccess = categoryAccess[category]
-                        elemValue = categoryAccess[elem]
-
-                Description = indent + elem + " = " + str(elemValue)
-                paramsDescription.append(Description)
+                        else:
+                            categoryAccess = categoryAccess[category]
+                            elemValue = categoryAccess[elem]
+                        Description = indent + elem + " = " + str(elemValue)
+                        paramsDescription.append(Description)
+                    except AttributeError:
+                        pass
             else:
                 # There are more nesting levels in the categories
                 (CategoryName, categoryId, categoryParamsList) = elem
@@ -106,7 +162,8 @@ within a parameters list."""
         infos.extend(self.describeParams(paramsList))
                     
         # Remove the last blank record added after each top-level category
-        infos.pop()
+        if len(infos) > 0:
+            infos.pop()
                                                          
         return "\n".join(infos)
 
